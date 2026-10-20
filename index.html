@@ -18,21 +18,21 @@
 
   <aside id="presenter" class="glass" aria-label="AI co-presenter">
     <div class="stage">
-      <video id="video" autoplay playsinline aria-label="Nico, the AI co-presenter"></video>
+      <video id="video" autoplay playsinline aria-label="Irfan, the AI co-presenter"></video>
       <div class="stage-idle" aria-hidden="true">
         <img src="/static/logo-light.png" alt="" />
-        <span>Nico is joining…</span>
+        <span>Irfan is joining…</span>
       </div>
       <span class="live-badge" aria-hidden="true"><i></i>Live</span>
       <div id="talk" aria-live="polite">
         <kbd>SPACE</kbd>
-        <span id="talk-text">Talk to Nico</span>
+        <span id="talk-text">Talk to Irfan</span>
         <span id="bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
       </div>
     </div>
     <div class="presenter-bar">
       <div class="presenter-name">
-        <strong>Nico</strong>
+        <strong>Irfan</strong>
         <small>AI co-presenter · VMS</small>
       </div>
       <span id="state" aria-live="polite">
@@ -78,20 +78,20 @@
       if (!line) {
         line = document.createElement('p');
         line.dataset.segment = segment;
-        line.className = speaker === 'Nico' ? 'cap-agent' : 'cap-user';
+        line.className = speaker === 'Irfan' ? 'cap-agent' : 'cap-user';
         line.innerHTML = `<b>${speaker}</b><span></span>`;
         captions.append(line);
         while (captions.children.length > 2) captions.firstElementChild.remove();
       }
-      // Light up the slide item Nico is describing, using only the words he has just spoken.
+      // Light up the slide item Irfan is describing, using only the words he has just spoken.
       const before = Number(line.dataset.len || 0);
       line.dataset.len = text.length;
-      if (speaker === 'Nico') SITE.spotlight({ text: text.slice(Math.max(0, before - 24)) });
+      if (speaker === 'Irfan') SITE.spotlight({ text: text.slice(Math.max(0, before - 24)) });
       line.querySelector('span').textContent = brand(text);
       captions.scrollTop = captions.scrollHeight;
     }
 
-    // The deck changes width when Nico's panel opens or closes. Fade it through the change so
+    // The deck changes width when Irfan's panel opens or closes. Fade it through the change so
     // the text re-wrapping is never seen.
     const deckEl = document.getElementById('site');
     function reflow(change) {
@@ -105,11 +105,13 @@
     let tried = [];
     let agentTimer = null;
     let agentJoined = false;
+    let lastSign = 0;       // last sign of life from the agent (status message or state change)
+    let voiceHeard = false; // the agent reached listening/speaking, so the voice pipeline works
 
     async function failover(reason) {
       if (!room && !account) return;
       const bad = account;
-      clearTimeout(agentTimer);
+      clearInterval(agentTimer);
       if (room) { room.removeAllListeners(); room.disconnect(); room = null; }
       agentId = null;
       captions.replaceChildren();
@@ -145,10 +147,12 @@
         const res = await fetch('/token?skip=' + encodeURIComponent(tried.join(','))).catch(() => {
           throw new Error('Can’t reach the server. Please check your connection and try again.');
         });
-        if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error || 'Nico is unavailable right now. Please try again shortly.');
+        if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error || 'Irfan is unavailable right now. Please try again shortly.');
         const { url, token, stage: stageMode, account: acct } = await res.json();
         account = acct;
         agentJoined = false;
+        voiceHeard = false;
+        lastSign = Date.now();
         stage = !!stageMode;
         room = new Room();
         const mine = room;
@@ -162,10 +166,12 @@
           const state = changed['lk.agent.state'];
           if (state) {
             agentId = participant.identity;
+            lastSign = Date.now();
+            if (state === 'listening' || state === 'speaking') voiceHeard = true;
             if (stage && !talking) talkState(state === 'speaking' ? 'speaking' : state === 'thinking' ? 'thinking' : 'idle');
             label.textContent = stage && state === 'listening' ? 'Tap clicker or SPACE to talk' : (STATES[state] ?? state);
             presenter.dataset.state = state;
-            // Keep the spotlight while Nico talks; let it fade shortly after he stops.
+            // Keep the spotlight while Irfan talks; let it fade shortly after he stops.
             clearTimeout(spotTimer);
             if (state !== 'speaking') spotTimer = setTimeout(() => SITE.clear_spot(), 2500);
           }
@@ -174,14 +180,14 @@
         room.on(RoomEvent.DataReceived, (payload, participant, kind, topic) => {
           if (topic !== 'ui') return;
           const { action, ...args } = JSON.parse(new TextDecoder().decode(payload));
-          if (action === 'status') return void (label.textContent = args.text);
+          if (action === 'status') { lastSign = Date.now(); return void (label.textContent = args.text); }
           if (action === 'error') { toast(args.text); return leave(); }
           if (action === 'failover') return void failover(args.text);
           SITE[action]?.(args);
         });
 
         room.registerTextStreamHandler('lk.transcription', async (reader, from) => {
-          const speaker = from.identity === room.localParticipant.identity ? 'You' : 'Nico';
+          const speaker = from.identity === room.localParticipant.identity ? 'You' : 'Irfan';
           const segment = reader.info.attributes?.['lk.segment_id'] ?? reader.info.id;
           let text = '';
           for await (const chunk of reader) {
@@ -202,16 +208,20 @@
         }
         agentJoined = room.remoteParticipants.size > 0;
         // The agent for this account should join within seconds; if not, that account is not usable.
-        clearTimeout(agentTimer);
-        agentTimer = setTimeout(() => { if (room === mine && !agentJoined) failover('agent did not join'); }, 20000);
+        clearInterval(agentTimer);
+        agentTimer = setInterval(() => {
+          if (room !== mine || voiceHeard) return clearInterval(agentTimer);
+          if (!agentJoined && Date.now() - lastSign > 20000) failover('agent did not join');
+          else if (agentJoined && Date.now() - lastSign > 75000) failover('no voice from the agent');
+        }, 2000);
         await room.localParticipant.setMicrophoneEnabled(true);
         if (stage) { document.body.classList.add('stage-mode'); talkState('idle'); watchMic(); }
-        label.textContent = 'Nico is joining…';
+        label.textContent = 'Irfan is joining…';
       }
     }
 
-    // Stage mode: tap SPACE (or a clicker's Next/Previous) to talk to Nico, tap again to send.
-    // Tapping while Nico is speaking cuts him off and starts listening: only the presenter can do that.
+    // Stage mode: tap SPACE (or a clicker's Next/Previous) to talk to Irfan, tap again to send.
+    // Tapping while Irfan is speaking cuts him off and starts listening: only the presenter can do that.
     const talkText = document.getElementById('talk-text');
     const bars = [...document.querySelectorAll('#bars i')];
     const rpc = (method) => room && agentId &&
@@ -221,8 +231,8 @@
     let audioCtx = null;
 
     const TALK_TEXT = {
-      idle: 'Talk to Nico', listening: 'Listening… tap SPACE when done',
-      thinking: 'Nico is thinking…', speaking: 'Nico is speaking · SPACE to interrupt',
+      idle: 'Talk to Irfan', listening: 'Listening… tap SPACE when done',
+      thinking: 'Irfan is thinking…', speaking: 'Irfan is speaking · SPACE to interrupt',
     };
     function talkState(s) {
       presenter.dataset.talk = s;
@@ -283,7 +293,7 @@
     });
 
     function leave() {
-      clearTimeout(agentTimer);
+      clearInterval(agentTimer);
       talking = false;
       document.body.classList.remove('stage-mode');
       room?.disconnect();

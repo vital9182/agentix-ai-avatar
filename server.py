@@ -81,7 +81,7 @@ async def token(request: web.Request) -> web.Response:
     skip = {n for n in request.query.get("skip", "").split(",") if n}
     acc = pick(skip)
     if acc is None:
-        return web.json_response({"error": "Nico is at capacity right now. Please try again in a few minutes."}, status=503)
+        return web.json_response({"error": "Irfan is at capacity right now. Please try again in a few minutes."}, status=503)
     usage(acc["name"])["used"] += 1
     save_state()
     room = f"avatar-demo-{uuid.uuid4().hex[:8]}"  # fresh room per visit

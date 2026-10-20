@@ -101,7 +101,7 @@ const FAQS = [
 ];
 
 
-// Words that tell the deck which item Nico is describing. The match follows his live speech, so the
+// Words that tell the deck which item Irfan is describing. The match follows his live speech, so the
 // right card lights up as he says it, with no extra work from the AI.
 const SPOT_KEYS = {
   challenge: [
@@ -195,7 +195,7 @@ const BODY = {
       <p class="lede rv">We run the customer conversations and business processes that grow your revenue, with trained people, proven process and AI built in.</p>
       <div class="actions rv">
         <button class="cta" type="button" data-start>Start presentation ${arrow}</button>
-        <span class="hint">Meet Nico, our AI co-presenter</span>
+        <span class="hint">Meet Irfan, our AI co-presenter</span>
       </div>
     </div>
     <div class="glass stat-bar rv">
@@ -396,7 +396,7 @@ function go(target, { silent } = {}) {
 }
 
 
-// ---- Spotlight: follow Nico's words ----
+// ---- Spotlight: follow Irfan's words ----
 const escapeRe = (t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 const SPOTS = new Map(scenes.map((scene) => {
   const keys = SPOT_KEYS[scene.id] ?? [];
@@ -414,7 +414,7 @@ function clearSpot() {
   });
 }
 
-// Light up whichever item is mentioned last in the newest words Nico has spoken.
+// Light up whichever item is mentioned last in the newest words Irfan has spoken.
 function spotlight({ text }) {
   const scene = scenes[index];
   let best = null;

@@ -233,7 +233,7 @@ h1 em, h2 em {
 .faq .tile h3 { font-family: var(--sans); font-size: 1.3rem; font-weight: 700; letter-spacing: -.01em; }
 .faq .tile p { font-size: .98rem; }
 
-/* ---------- Spotlight: the item Nico is talking about ---------- */
+/* ---------- Spotlight: the item Irfan is talking about ---------- */
 .spot { transition: transform .45s var(--ease), opacity .45s, filter .45s, border-color .45s, box-shadow .45s; }
 .scene.spotting .spot:not(.spot-on) { opacity: .5; filter: saturate(.7); }
 .scene .spot.spot-on { transform: translateY(-.3rem) scale(1.025); border-color: var(--aqua); box-shadow: 0 0 0 .14rem rgba(95, 227, 207, .55), 0 1.6rem 3.4rem rgba(0, 0, 0, .45), 0 0 2.6rem rgba(95, 227, 207, .28), inset 0 1px 0 rgba(255, 255, 255, .25); }
@@ -329,7 +329,7 @@ h1 em, h2 em {
 .live-badge { position: absolute; top: .8rem; left: .8rem; display: none; align-items: center; gap: .45rem; padding: .25rem .7rem; border-radius: 99px; background: rgba(5, 13, 19, .72); backdrop-filter: blur(.5rem); font-size: .7rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
 .live-badge i { width: .5rem; height: .5rem; border-radius: 50%; background: #ff5a5f; animation: pulse 1.4s ease-in-out infinite; }
 .has-video .live-badge { display: inline-flex; }
-/* a soft glow while Nico is talking, so the room knows who has the floor */
+/* a soft glow while Irfan is talking, so the room knows who has the floor */
 #presenter[data-state="speaking"] .stage { animation: speak 1.8s ease-in-out infinite; }
 @keyframes speak { 0%, 100% { box-shadow: 0 0 0 .14rem rgba(95, 227, 207, .55), 0 0 1.6rem rgba(95, 227, 207, .25); } 50% { box-shadow: 0 0 0 .14rem rgba(95, 227, 207, .95), 0 0 2.8rem rgba(95, 227, 207, .5); } }
 
@@ -353,7 +353,7 @@ h1 em, h2 em {
 #end { padding: .8rem; border: 1px solid var(--line); border-radius: .9rem; background: rgba(255, 255, 255, .06); font-size: .95rem; font-weight: 700; cursor: pointer; transition: background .25s, border-color .25s; }
 #end:hover { border-color: #ff7b80; background: rgba(255, 90, 95, .2); }
 
-/* Nico always gets a full-height column of his own and the deck shrinks to make room, so slides never sit behind him. */
+/* Irfan always gets a full-height column of his own and the deck shrinks to make room, so slides never sit behind him. */
 @media (min-width: 720px) {
   body.presenting { --dockw: clamp(18rem, 24vw, 34rem); }
   #presenter { top: 0; right: 0; bottom: 0; width: var(--dockw); gap: 1.1rem; padding: 1.3rem; border-width: 0 0 0 1px; border-radius: 0; box-shadow: -1.5rem 0 4rem rgba(0, 0, 0, .45); }
@@ -361,14 +361,14 @@ h1 em, h2 em {
   @keyframes dock-wide { from { transform: translateX(100%); } }
   #captions { flex: 1; max-height: none; justify-content: flex-end; gap: 1.1rem; }
   #captions p { font-size: 1rem; }
-  /* Nico's words are large: this is what the room reads while he talks. */
+  /* Irfan's words are large: this is what the room reads while he talks. */
   .cap-agent span { font-size: 1.5rem; font-weight: 500; line-height: 1.38; }
   .cap-user span { font-size: .95rem; }
   #end { margin-top: auto; }
   .presenting .scene-inner { gap: 1.6rem; padding: 5.6rem 3rem 3.4rem 8.5rem; }
   .presenting #home .scene-inner { padding-top: 7rem; }
   .presenting .marquee { margin-right: -3rem; }
-  /* The deck is a quarter narrower while Nico is beside it, so cards tighten up to keep every scene on one screen. */
+  /* The deck is a quarter narrower while Irfan is beside it, so cards tighten up to keep every scene on one screen. */
   .presenting h2 { font-size: 3.1rem; }
   .presenting .grid, .presenting .bento { gap: 1rem; }
   .presenting .tile { gap: .4rem; padding: 1.15rem 1.35rem 1.25rem; }

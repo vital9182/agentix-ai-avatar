@@ -1,7 +1,7 @@
-"""Nico, the AI co-presenter for Vintaqe Management Solutions (VMS).
+"""Irfan, the AI co-presenter for Vintaqe Management Solutions (VMS).
 
-Abhinav, the founder, presents VMS to business owners. He asks Nico questions
-out loud, and Nico answers for the audience, navigates the website, handles
+Abhinav, the founder, presents VMS to business owners. He asks Irfan questions
+out loud, and Irfan answers for the audience, navigates the website, handles
 objections and helps him close.
 
 The pipeline:
@@ -44,7 +44,7 @@ Section: TypeAlias = Literal[
     "approach", "industries", "clients", "faq", "contact",
 ]
 
-# How Nico talks: "hinglish" (default) is simple everyday Hindi mixed with simple English, "english" is plain
+# How Irfan talks: "hinglish" (default) is simple everyday Hindi mixed with simple English, "english" is plain
 # English. Set NICO_LANGUAGE in .env to switch.
 _MODE = (os.getenv("NICO_STAGE_MODE") or "0").strip().lower()
 STAGE_MODE = _MODE in ("1", "true", "yes", "on", "clicker")  # tap-to-talk with a clicker or key
@@ -99,7 +99,7 @@ LANGUAGE_RULES = LANGUAGE_RULES or ""
 KNOWLEDGE = (Path(__file__).parent / "VMSOLUTIONS_COMPANY_KNOWLEDGE.md").read_text(encoding="utf-8")
 
 INSTRUCTIONS = f"""\
-You are Nico, the AI co-presenter for Vintaqe Management Solutions (VMS), a Delhi
+You are Irfan, the AI co-presenter for Vintaqe Management Solutions (VMS), a Delhi
 based contact center, BPO and business operations company. You are on stage, live,
 with {PRESENTER}, the founder of VMS, in front of business owners who could become
 clients. {PRESENTER} asks you questions so you can explain VMS to the room. Your job
@@ -283,13 +283,13 @@ async def entrypoint(ctx: JobContext) -> None:
         stt=inference.STT(  # speech -> text, Hindi + English
             model="deepgram/flux-general-multi",
             language="multi",
-            extra_kwargs={"keyterm": ["Vintaqe", "VMS", "VMSolutions", PRESENTER, "IndiaMART", "PagarBook", "Indifi", "WheelsEye"]},
+            extra_kwargs={"keyterm": ["Irfan", "Vintaqe", "VMS", "VMSolutions", PRESENTER, "IndiaMART", "PagarBook", "Indifi", "WheelsEye"]},
         ),
         llm=inference.LLM(model="openai/gpt-4.1-mini"),  # text -> reply (swap in any LLM)
         tts=inference.TTS(model="cartesia/sonic-3.6", voice=VOICE_ID, language="hi"),  # reply -> speech; "hi" also reads English
         turn_handling={
             # Stage mode: the presenter holds SPACE to talk, so crowd noise is never heard and never
-            # cuts Nico off. Normal mode: Nico listens all the time and detects the end of each turn.
+            # cuts Irfan off. Normal mode: Irfan listens all the time and detects the end of each turn.
             "turn_detection": "manual" if STAGE_MODE else "stt",
             "interruption": {"enabled": False} if (STAGE_MODE or NOISY_AUTO) else {},
             "preemptive_generation": {"enabled": False},    # keep off when using tools
@@ -300,7 +300,8 @@ async def entrypoint(ctx: JobContext) -> None:
     @session.on("error")
     def _on_error(ev) -> None:
         err = str(getattr(ev, "error", ev))
-        if re.search(r"(400|402|403|429)|quota|exhaust|limit", err, re.I):
+        fatal = getattr(getattr(ev, "error", None), "recoverable", True) is False  # a TTS/STT/LLM that gave up
+        if fatal or re.search(r"(400|402|403|429)|quota|exhaust|limit", err, re.I):
             asyncio.ensure_future(ctx.room.local_participant.publish_data(
                 json.dumps({"action": "failover", "text": err[:200]}), topic="ui"))
 
@@ -321,7 +322,7 @@ async def entrypoint(ctx: JobContext) -> None:
         except synthesia.SynthesiaError as e:
             busy = "concurrent" in str(e).lower()
             if not (busy or e.retryable) or attempt == 29:
-                await tell_browser(action="error", text=f"Nico couldn't start: {e}")
+                await tell_browser(action="error", text=f"Irfan couldn't start: {e}")
                 raise
             if busy:
                 await tell_browser(action="status", text="Waiting for the previous session to close…")
@@ -334,7 +335,7 @@ async def entrypoint(ctx: JobContext) -> None:
         session.input.set_audio_enabled(False)  # deaf until the presenter holds SPACE
 
         async def start_turn(data: rtc.RpcInvocationData) -> str:
-            await session.interrupt(force=True)  # the presenter pressed SPACE: Nico stops talking (if he was)
+            await session.interrupt(force=True)  # the presenter pressed SPACE: Irfan stops talking (if he was)
             session.clear_user_turn()
             session.input.set_audio_enabled(True)
             return "ok"

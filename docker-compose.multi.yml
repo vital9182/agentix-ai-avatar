@@ -1,0 +1,38 @@
+# Several LiveKit accounts. Needs accounts.json next to this file (copy accounts.example.json).
+# One agent per account; add or remove agent-accN blocks to match accounts.json.
+services:
+  web:
+    build: .
+    image: vms-nico:latest
+    command: python server.py
+    env_file: .env
+    environment:
+      - HOST=0.0.0.0
+      - PORT=8080
+    volumes:
+      - ./accounts.json:/app/accounts.json:ro
+      - ./data:/app/data
+    expose:
+      - "8080"
+    restart: unless-stopped
+
+  agent-acc1: &agent
+    image: vms-nico:latest
+    command: python agent.py start
+    env_file: .env
+    environment:
+      - AGENT_ACCOUNT=acc1
+    volumes:
+      - ./accounts.json:/app/accounts.json:ro
+    depends_on: [web]
+    restart: unless-stopped
+
+  agent-acc2:
+    <<: *agent
+    environment:
+      - AGENT_ACCOUNT=acc2
+
+  agent-acc3:
+    <<: *agent
+    environment:
+      - AGENT_ACCOUNT=acc3

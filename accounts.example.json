@@ -1,0 +1,5 @@
+[
+  {"name": "acc1", "url": "wss://<project-1>.livekit.cloud", "key": "", "secret": "", "limit": 100},
+  {"name": "acc2", "url": "wss://<project-2>.livekit.cloud", "key": "", "secret": "", "limit": 100},
+  {"name": "acc3", "url": "wss://<project-3>.livekit.cloud", "key": "", "secret": "", "limit": 100}
+]

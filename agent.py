@@ -26,6 +26,13 @@ from livekit.plugins import silero, synthesia
 
 load_dotenv(dotenv_path=Path(__file__).parent / ".env")
 
+# Several LiveKit accounts: AGENT_ACCOUNT=<name> makes this process register with that account from
+# accounts.json (the same file server.py reads). Run one agent process per account.
+if os.getenv("AGENT_ACCOUNT"):
+    _acc = next(a for a in json.loads((Path(__file__).parent / "accounts.json").read_text(encoding="utf-8"))
+                if a["name"] == os.environ["AGENT_ACCOUNT"])
+    os.environ.update(LIVEKIT_URL=_acc["url"], LIVEKIT_API_KEY=_acc["key"], LIVEKIT_API_SECRET=_acc["secret"])
+
 AGENT_NAME = "avatar-demo"  # must match server.py
 AVATAR_ID = os.getenv("SYNTHESIA_AVATAR_ID") or "8788bef1-8020-46e0-a8f4-510ea9989b25"  # stock fallback
 VOICE_ID = os.getenv("CARTESIA_VOICE_ID") or "cb9c954d-bcaa-43ed-82bf-aeb5e88a3cb5"  # Cartesia "Kabir", Hindi male
@@ -288,6 +295,14 @@ async def entrypoint(ctx: JobContext) -> None:
             "preemptive_generation": {"enabled": False},    # keep off when using tools
         },
     )
+
+    # If the account runs out of credit mid-session (a 4xx from LiveKit), tell the page so it can move to the next account.
+    @session.on("error")
+    def _on_error(ev) -> None:
+        err = str(getattr(ev, "error", ev))
+        if re.search(r"(400|402|403|429)|quota|exhaust|limit", err, re.I):
+            asyncio.ensure_future(ctx.room.local_participant.publish_data(
+                json.dumps({"action": "failover", "text": err[:200]}), topic="ui"))
 
     # The face: this is the whole Synthesia integration. Start it BEFORE session.start().
     avatar = synthesia.AvatarSession(

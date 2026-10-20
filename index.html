@@ -99,22 +99,59 @@
       setTimeout(() => { change(); requestAnimationFrame(() => deckEl.classList.remove('dim')); }, 260);
     }
 
+    // Several LiveKit accounts sit behind the server. If one fails (can't connect, the agent never joins,
+    // a 4xx quota error), we report it and quietly retry on the next one.
+    let account = null;
+    let tried = [];
+    let agentTimer = null;
+    let agentJoined = false;
+
+    async function failover(reason) {
+      if (!room && !account) return;
+      const bad = account;
+      clearTimeout(agentTimer);
+      if (room) { room.removeAllListeners(); room.disconnect(); room = null; }
+      agentId = null;
+      captions.replaceChildren();
+      label.textContent = 'Switching…';
+      tried.push(bad);
+      fetch('/report', { method: 'POST', body: JSON.stringify({ account: bad, reason: String(reason || '') }) }).catch(() => {});
+      try { await join(); } catch (err) { leave(); toast(err.message); }
+    }
+
     async function toggle() {
       if (room) return leave();
       label.textContent = 'Connecting…';
+      tried = [];
+      account = null;
 
       try {
         // Ask for the microphone first, so a blocked mic never leaves an avatar session running.
         const probe = await navigator.mediaDevices.getUserMedia({ audio: true });
         probe.getTracks().forEach((t) => t.stop());
         reflow(() => document.body.classList.add('presenting'));
+        await join();
+      } catch (err) {
+        leave();
+        const blocked = err.name === 'NotAllowedError' || /permission|denied/i.test(err.message);
+        toast(blocked
+          ? 'Microphone blocked. Click the lock icon in the address bar, allow the microphone, then press Start again.'
+          : err.message);
+      }
+    }
 
-        const res = await fetch('/token').catch(() => {
-          throw new Error('Can’t reach the server. Run python server.py and open http://localhost:8080');
+    async function join() {
+      {
+        const res = await fetch('/token?skip=' + encodeURIComponent(tried.join(','))).catch(() => {
+          throw new Error('Can’t reach the server. Please check your connection and try again.');
         });
-        const { url, token, stage: stageMode } = await res.json();
+        if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error || 'Nico is unavailable right now. Please try again shortly.');
+        const { url, token, stage: stageMode, account: acct } = await res.json();
+        account = acct;
+        agentJoined = false;
         stage = !!stageMode;
         room = new Room();
+        const mine = room;
 
         room.on(RoomEvent.TrackSubscribed, (track) => {
           track.attach(video);
@@ -139,6 +176,7 @@
           const { action, ...args } = JSON.parse(new TextDecoder().decode(payload));
           if (action === 'status') return void (label.textContent = args.text);
           if (action === 'error') { toast(args.text); return leave(); }
+          if (action === 'failover') return void failover(args.text);
           SITE[action]?.(args);
         });
 
@@ -154,18 +192,21 @@
 
         room.on(RoomEvent.ActiveSpeakersChanged, (speakers) =>
           { if (!stage) mic.classList.toggle('on', speakers.some((s) => s.isLocal)); });
-        room.on(RoomEvent.Disconnected, leave);
+        room.on(RoomEvent.ParticipantConnected, () => { agentJoined = true; });
+        room.on(RoomEvent.Disconnected, () => { if (room === mine) leave(); });
 
-        await room.connect(url, token);
+        try {
+          await room.connect(url, token);
+        } catch (err) {
+          return failover('connect failed: ' + err.message);
+        }
+        agentJoined = room.remoteParticipants.size > 0;
+        // The agent for this account should join within seconds; if not, that account is not usable.
+        clearTimeout(agentTimer);
+        agentTimer = setTimeout(() => { if (room === mine && !agentJoined) failover('agent did not join'); }, 20000);
         await room.localParticipant.setMicrophoneEnabled(true);
         if (stage) { document.body.classList.add('stage-mode'); talkState('idle'); watchMic(); }
         label.textContent = 'Nico is joining…';
-      } catch (err) {
-        leave();
-        const blocked = err.name === 'NotAllowedError' || /permission|denied/i.test(err.message);
-        toast(blocked
-          ? 'Microphone blocked. Click the lock icon in the address bar, allow the microphone, then press Start again.'
-          : err.message);
       }
     }
 
@@ -242,6 +283,7 @@
     });
 
     function leave() {
+      clearTimeout(agentTimer);
       talking = false;
       document.body.classList.remove('stage-mode');
       room?.disconnect();

@@ -4,3 +4,5 @@ __pycache__/
 .git/
 .claude/
 SCRIPT.md
+accounts.json
+data/

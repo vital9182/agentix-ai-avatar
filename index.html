@@ -107,6 +107,24 @@
     let agentJoined = false;
     let lastSign = 0;       // last sign of life from the agent (status message or state change)
     let voiceHeard = false; // the agent reached listening/speaking, so the voice pipeline works
+    let unavailable = false;
+    const FALLBACK = 'I’m not feeling well, Abhinav sir. Please take care of the presentation. Could you please take over, sir?';
+
+    // Last resort: every account failed, or Irfan could not start. Keep the panel open and let Irfan
+    // "say" in the caption box that Abhinav should carry on, so the presentation never stalls on an error.
+    function giveUp() {
+      clearInterval(agentTimer);
+      if (room) { room.removeAllListeners(); room.disconnect(); room = null; }
+      agentId = null; talking = false; unavailable = true;
+      document.body.classList.remove('stage-mode');
+      document.body.classList.add('presenting');
+      presenter.classList.remove('has-video');
+      delete presenter.dataset.state;
+      document.querySelector('.stage-idle span').textContent = 'Irfan is unavailable';
+      label.textContent = 'Unavailable';
+      captions.replaceChildren();
+      caption('Irfan', 'unavailable', FALLBACK);
+    }
 
     async function failover(reason) {
       if (!room && !account) return;
@@ -118,11 +136,11 @@
       label.textContent = 'Switching…';
       tried.push(bad);
       fetch('/report', { method: 'POST', body: JSON.stringify({ account: bad, reason: String(reason || '') }) }).catch(() => {});
-      try { await join(); } catch (err) { leave(); toast(err.message); }
+      try { await join(); } catch (err) { giveUp(); }
     }
 
     async function toggle() {
-      if (room) return leave();
+      if (room || unavailable) return leave();
       label.textContent = 'Connecting…';
       tried = [];
       account = null;
@@ -134,11 +152,10 @@
         reflow(() => document.body.classList.add('presenting'));
         await join();
       } catch (err) {
-        leave();
         const blocked = err.name === 'NotAllowedError' || /permission|denied/i.test(err.message);
-        toast(blocked
-          ? 'Microphone blocked. Click the lock icon in the address bar, allow the microphone, then press Start again.'
-          : err.message);
+        if (!blocked) return giveUp();
+        leave();
+        toast('Microphone blocked. Click the lock icon in the address bar, allow the microphone, then press Start again.');
       }
     }
 
@@ -181,7 +198,7 @@
           if (topic !== 'ui') return;
           const { action, ...args } = JSON.parse(new TextDecoder().decode(payload));
           if (action === 'status') { lastSign = Date.now(); return void (label.textContent = args.text); }
-          if (action === 'error') { toast(args.text); return leave(); }
+          if (action === 'error') return void giveUp();
           if (action === 'failover') return void failover(args.text);
           SITE[action]?.(args);
         });
@@ -295,6 +312,8 @@
     function leave() {
       clearInterval(agentTimer);
       talking = false;
+      unavailable = false;
+      document.querySelector('.stage-idle span').textContent = 'Irfan is joining…';
       document.body.classList.remove('stage-mode');
       room?.disconnect();
       room = null;

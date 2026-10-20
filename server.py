@@ -15,6 +15,7 @@ from livekit import api
 load_dotenv(dotenv_path=Path(__file__).parent / ".env")
 
 AGENT_NAME = "avatar-demo"  # must match agent.py
+STAGE_MODE = (os.getenv("NICO_STAGE_MODE") or "0").strip().lower() in ("1", "true", "yes", "on", "clicker")  # tap-to-talk for noisy rooms
 
 
 async def token(request: web.Request) -> web.Response:
@@ -33,7 +34,7 @@ async def token(request: web.Request) -> web.Response:
         )
         .to_jwt()
     )
-    return web.json_response({"url": os.environ["LIVEKIT_URL"], "token": jwt})
+    return web.json_response({"url": os.environ["LIVEKIT_URL"], "token": jwt, "stage": STAGE_MODE})
 
 
 async def index(request: web.Request) -> web.FileResponse:
@@ -48,4 +49,4 @@ app.router.add_get("/token", token)
 app.router.add_static("/static", Path(__file__).parent / "static")  # site.css + site.js
 
 if __name__ == "__main__":
-    web.run_app(app, host="127.0.0.1", port=8080)
+    web.run_app(app, host=os.getenv("HOST", "127.0.0.1"), port=int(os.getenv("PORT", "8080")))

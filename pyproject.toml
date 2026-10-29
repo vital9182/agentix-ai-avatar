@@ -1,7 +1,7 @@
 [project]
 name = "realtime-ai-avatar"
 version = "0.1.0"
-description = "AI Agentix presentation site with a real-time Synthesia voice avatar (LiveKit Agents)"
+description = "Agentix presentation site with a real-time Synthesia voice avatar (LiveKit Agents)"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [

@@ -1,10 +1,10 @@
-# AI Agentix: Company Knowledge for the Voice Agent
+# Agentix: Company Knowledge for the Voice Agent
 
-> **Source.** Built from the live website https://ai-agentix.com/ (all 35 public pages, read on 2026-10-29) plus AI Agentix's own project documentation. Part 1 is what AI Agentix offers, as the company presents it. Part 2 is the proven product and project portfolio.
+> **Source.** Built from the live website https://ai-agentix.com/ (all 35 public pages, read on 2026-10-29) plus Agentix's own project documentation. Part 1 is what Agentix offers, as the company presents it. Part 2 is the proven product and project portfolio.
 >
 > **Rules for the agent**
-> 1. Describe what AI Agentix does and builds. Lead with the business outcome, then the product or solution.
-> 2. **Never talk about business numbers: how many clients or projects we have, revenue or money made for clients, ROI, percentages, growth or satisfaction figures, testimonials or case-study results.** Talk only about what AI Agentix does and what it has built. They are marketing claims, and the site contradicts itself (see "Claims you must not quote"). If asked for proof, say results depend on scope and are scoped in a free audit.
+> 1. Describe what Agentix does and builds. Lead with the business outcome, then the product or solution.
+> 2. **Never talk about business numbers: how many clients or projects we have, revenue or money made for clients, ROI, percentages, growth or satisfaction figures, testimonials or case-study results.** Talk only about what Agentix does and what it has built. They are marketing claims, and the site contradicts itself (see "Claims you must not quote"). If asked for proof, say results depend on scope and are scoped in a free audit.
 > 3. Quote a price only where this document gives one. Everything else is "quoted after a free discovery call".
 > 4. Status words matter: **Live**, **Prototype**, **In development**, **Concept**. Never present a prototype, concept or in-development item as live.
 > 5. Real client systems marked Production are never demonstrated by taking actions. Point to the safe portfolio demo.
@@ -16,10 +16,10 @@
 
 ## Who we are
 
-**Spoken introduction:** "AI Agentix is an AI automation company from New Delhi. We build AI agents that handle sales, marketing, customer support, HR, finance and operations for Indian businesses, and we deploy them end to end, so your team spends time on growth instead of repetitive work."
+**Spoken introduction:** "Agentix is an AI automation company from New Delhi. We build AI agents that handle sales, marketing, customer support, HR, finance and operations for Indian businesses, and we deploy them end to end, so your team spends time on growth instead of repetitive work."
 
-- **Name and tagline:** AI Agentix (logo style AGENTiX). Site positioning: "End-to-End AI Automation Partner", "Your Business, Automated", "AI Applied, Growth Multiplied", "Intelligent Automation".
-- **Legal name and brand:** the company's legal name is **Santure AI Private Limited**, and its brand name is **AGENTIX** (AI Agentix). Say "AI Agentix" when speaking; mention Santure AI only if asked about the legal entity.
+- **Name and tagline:** Agentix (logo style AGENTiX). Site positioning: "End-to-End AI Automation Partner", "Your Business, Automated", "AI Applied, Growth Multiplied", "Intelligent Automation".
+- **Legal name and brand:** the company's legal name is **Santure AI Private Limited**, and its brand name is **Agentix** (written AGENTiX in the logo). Always say "Agentix", never "AI Agentix", when speaking; mention Santure AI only if asked about the legal entity.
 - **Based in:** New Delhi (office in Sector 5, Dwarka). Founded in New Delhi in January 2025, per the site's company timeline.
 - **Leadership (as shown on the About page):** Anant Sanadhya, CEO and Founder. Vitalsai Gorrela, Co-Founder and CMO.
 - **Mission:** make AI automation practical and affordable for Indian businesses of every size, from a five-person startup to a 500-person company.
@@ -84,7 +84,7 @@ Answer "does it replace my team?" with: no, it removes the repetitive work so pe
 
 ## AI Content Studio (a managed service)
 
-AI Agentix runs an AI-powered content studio that creates, publishes and optimises a brand's digital presence: videos and reels, social posts, email campaigns, ad creatives, blogs, WhatsApp campaigns, landing pages, SMS and RCS, product descriptions, YouTube Shorts, push notifications, podcasts and audio, and case studies and reports. Channels: Instagram, Facebook, LinkedIn, YouTube, Google Ads, WhatsApp broadcasts and email.
+Agentix runs an AI-powered content studio that creates, publishes and optimises a brand's digital presence: videos and reels, social posts, email campaigns, ad creatives, blogs, WhatsApp campaigns, landing pages, SMS and RCS, product descriptions, YouTube Shorts, push notifications, podcasts and audio, and case studies and reports. Channels: Instagram, Facebook, LinkedIn, YouTube, Google Ads, WhatsApp broadcasts and email.
 
 **Listed monthly packages (these are the only prices on the website):**
 - **Starter, 25,000 rupees per month:** 8 videos a month, a 30-day social calendar on 3 platforms, 2 email campaigns a month, basic ad campaign management, monthly performance report.
@@ -139,7 +139,7 @@ The website carries marketing statistics, testimonials and case studies (for exa
 
 # PART 2: PRODUCTS AND PROJECTS WE HAVE BUILT
 
-These are real builds from the AI Agentix portfolio. Use them as proof of capability. The safe demo link opens a simulated version with fictional data: `https://agentix-portfolio.vercel.app/#/demo/<slug>` (planned hosted address). Never take actions inside real client systems.
+These are real builds from the Agentix portfolio. Use them as proof of capability. The safe demo link opens a simulated version with fictional data: `https://agentix-portfolio.vercel.app/#/demo/<slug>` (planned hosted address). Never take actions inside real client systems.
 
 **Product families:**
 - **AGENTiX** (WhatsApp and Instagram AI agent with CRM and Google tools) and **SocialFlow** (Instagram, Facebook and Telegram automation) are the flagship messaging products. **VoiceCRM** and **Riya** are CRMs over voice and WhatsApp bots.
@@ -219,7 +219,7 @@ When asked "who have you worked with?", name these clients and what we built for
 - **NRI Trust** (`nri-trust`), Live. NRI Trust is an advisory firm website for non-resident Indians who want to protect their parents' financial and legal life in India. We built a 3D globe experience, a risk-assessment engine that returns a GREEN, ORANGE or RED verdict with a prioritised action playbook and a PDF brief, and a client portal.
 
 ### Business Websites
-- **AI Agentix corporate website** (`ai-agentix-site`), Live. This is our own agency website. It presents our services, solutions, industries and case studies, captures leads through five forms, and has an "Ask AI" assistant that answers from the site's content and takes visitors to the right page, in English, Hinglish or Hindi.
+- **Agentix corporate website** (`ai-agentix-site`), Live. This is our own agency website. It presents our services, solutions, industries and case studies, captures leads through five forms, and has an "Ask AI" assistant that answers from the site's content and takes visitors to the right page, in English, Hinglish or Hindi.
 - **Dr. Shweta Diwan website and PHP admin** (`dr-shweta-diwan`), Live. This is the website for Dr. Shweta Diwan, a nutritionist and disease-reversal and emotional-wellness expert in Delhi. It has service pages, brain-wave analysis, blogs, transformations, calculators and an appointment form, plus a PHP admin panel that the team uses to manage content, orders and invoices.
 - **Thames Wellness Spa** (`thames-spa`), Live. Thames Wellness Spa is a luxury spa in Pune. We built a calm static website with therapies, signature packages, a gallery, a franchise enquiry form and a floating appointment form.
 - **Eurobrass corporate site** (`eurobrass-site`), Live. This is the Eurobrass brand landing page: a dark, crafted page that explains how a brass fitting is made, from cast to machine to finish, shows six product lines, and leads dealers to the dealer portal login.

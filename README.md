@@ -1,6 +1,6 @@
 # Vintaqe Management Solutions: a company website with a voice assistant
 
-A presentation site for AI Agentix, with a Synthesia avatar (Irfan) that answers questions about AI Agentix's products and projects. The agent's knowledge is [AGENTIX_COMPANY_KNOWLEDGE.md](./AGENTIX_COMPANY_KNOWLEDGE.md) (built from the ai-agentix.com website plus a project summary; full project detail is in AGENTIX_PROJECTS_DETAIL.md). The slide deck (HTML) is still the old one and will be replaced.
+A presentation site for Agentix, with a Synthesia avatar (Irfan) that answers questions about Agentix's products and projects. The agent's knowledge is [AGENTIX_COMPANY_KNOWLEDGE.md](./AGENTIX_COMPANY_KNOWLEDGE.md) (built from the ai-agentix.com website plus a project summary; full project detail is in AGENTIX_PROJECTS_DETAIL.md). The slide deck (HTML) is still the old one and will be replaced.
 
 ```
 mic → VAD → STT → turn detection → LLM (+ navigation tool) → TTS → Synthesia avatar → browser

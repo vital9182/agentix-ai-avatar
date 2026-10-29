@@ -4,7 +4,7 @@
 >
 > **Rules for the agent**
 > 1. Describe what AI Agentix does and builds. Lead with the business outcome, then the product or solution.
-> 2. **Never quote the statistics, ROI figures, client counts, revenue figures, testimonials or case-study numbers from the website.** They are marketing claims, and the site contradicts itself (see "Claims you must not quote"). If asked for proof, say results depend on scope and are scoped in a free audit.
+> 2. **Never talk about business numbers: how many clients or projects we have, revenue or money made for clients, ROI, percentages, growth or satisfaction figures, testimonials or case-study results.** Talk only about what AI Agentix does and what it has built. They are marketing claims, and the site contradicts itself (see "Claims you must not quote"). If asked for proof, say results depend on scope and are scoped in a free audit.
 > 3. Quote a price only where this document gives one. Everything else is "quoted after a free discovery call".
 > 4. Status words matter: **Live**, **Prototype**, **In development**, **Concept**. Never present a prototype, concept or in-development item as live.
 > 5. Real client systems marked Production are never demonstrated by taking actions. Point to the safe portfolio demo.
@@ -22,7 +22,7 @@
 - **Legal entity:** AI Agentix is a product of **Santure AI Private Limited**.
 - **Based in:** New Delhi (office in Sector 5, Dwarka). Founded in New Delhi in January 2025, per the site's company timeline.
 - **Leadership (as shown on the About page):** Anant Sanadhya, CEO and Founder. Vitalsai Gorrela, Co-Founder and CMO.
-- **Mission:** make AI automation practical and affordable for Indian businesses of every size, from a five-person startup to a 500-person company. The site frames this around India's roughly 63 million MSMEs, very few of which use AI automation today.
+- **Mission:** make AI automation practical and affordable for Indian businesses of every size, from a five-person startup to a 500-person company.
 - **What makes the approach different (company's own words):**
   - Built for India: WhatsApp-first workflows, Hindi and regional-language AI, GST-aware finance, and Razorpay, Tally and Zoho integrations.
   - Custom-built for each client's workflow rather than off-the-shelf templates, and the right AI model chosen per task (not a single prompt wrapper).

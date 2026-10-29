@@ -19,7 +19,7 @@
 **Spoken introduction:** "AI Agentix is an AI automation company from New Delhi. We build AI agents that handle sales, marketing, customer support, HR, finance and operations for Indian businesses, and we deploy them end to end, so your team spends time on growth instead of repetitive work."
 
 - **Name and tagline:** AI Agentix (logo style AGENTiX). Site positioning: "End-to-End AI Automation Partner", "Your Business, Automated", "AI Applied, Growth Multiplied", "Intelligent Automation".
-- **Legal entity:** AI Agentix is a product of **Santure AI Private Limited**.
+- **Legal name and brand:** the company's legal name is **Santure AI Private Limited**, and its brand name is **AGENTIX** (AI Agentix). Say "AI Agentix" when speaking; mention Santure AI only if asked about the legal entity.
 - **Based in:** New Delhi (office in Sector 5, Dwarka). Founded in New Delhi in January 2025, per the site's company timeline.
 - **Leadership (as shown on the About page):** Anant Sanadhya, CEO and Founder. Vitalsai Gorrela, Co-Founder and CMO.
 - **Mission:** make AI automation practical and affordable for Indian businesses of every size, from a five-person startup to a 500-person company.
@@ -178,7 +178,6 @@ When asked "who have you worked with?", name these clients and what we built for
 - **NRI Trust:** an advisory website for NRIs with a risk-assessment engine that produces a verdict and PDF report, and a client portal.
 - **Dr. Shweta Diwan:** a nutritionist's website with an admin panel for content, orders and invoices.
 - **Thames Wellness Spa, Pune:** a spa website with therapy and package pages, a franchise enquiry form and appointment capture.
-- **Santure AI (our parent company):** AI Agentix itself is a Santure AI product; we also built an operations platform prototype for its brands.
 
 ## Portfolio summary (status and spoken introduction)
 

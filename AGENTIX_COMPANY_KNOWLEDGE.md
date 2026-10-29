@@ -163,6 +163,23 @@ These are real builds from the AI Agentix portfolio. Use them as proof of capabi
 
 **Pricing exception:** AGENTiX and SocialFlow publish plans on their own sites (AGENTiX Core listed at Rs 2,999 per month before GST with a 3-day free trial; SocialFlow Starter Rs 999, Pro Rs 2,999, Enterprise Rs 7,999 per month). Quote these only as "listed on the product's pricing page", since they can change.
 
+## Clients we have built for
+
+When asked "who have you worked with?", name these clients and what we built for them. Say the scope only: never claim results, numbers or endorsements, and never name the businesses from the website's testimonials or case studies.
+
+- **Umang Superspeciality Hospital, Gurugram:** their hospital website with an admin content system and campaign-tracked patient enquiries, plus Umang Hospital HIMS, an outpatient hospital system with a voice registration agent (the HIMS is a prototype).
+- **Woodpecker Apartments & Suites:** a full property management platform for their serviced apartments (bookings, front desk, GST billing, housekeeping, POS, payroll, owner portal) and a guest booking website.
+- **Kaaya Eco Resort, Yala, Sri Lanka:** a resort website with online room booking, card payments, guest accounts and an admin dashboard.
+- **Max Fitness Gym, Indirapuram, Ghaziabad:** their website with online sign-up, and Max Register, a Hindi-first gym CRM with WhatsApp renewal reminders, receipts and face check-in.
+- **Fitness First Dwarka, West Delhi:** their premium gym website with free-trial lead capture, and Riya, a WhatsApp sales assistant with a CRM dashboard (a prototype).
+- **Eurobrass, New Delhi:** their corporate website, a dealer and quotation CRM (in development), and REDUX, a bath-fittings restoration platform with a lead CRM, offline surveyor app, customer portal and admin (in development).
+- **Your Hair Company:** a doctor-led hair care brand platform with a scalp-scan funnel, consultation booking, doctor portal and sales CRM (website live, platform in development).
+- **Skinwise:** a skincare brand site with a guided skin check, AI skin scan, a multilingual assistant, consultations and WhatsApp ordering.
+- **NRI Trust:** an advisory website for NRIs with a risk-assessment engine that produces a verdict and PDF report, and a client portal.
+- **Dr. Shweta Diwan:** a nutritionist's website with an admin panel for content, orders and invoices.
+- **Thames Wellness Spa, Pune:** a spa website with therapy and package pages, a franchise enquiry form and appointment capture.
+- **Santure AI (our parent company):** AI Agentix itself is a Santure AI product; we also built an operations platform prototype for its brands.
+
 ## Portfolio summary (status and spoken introduction)
 
 ### AI Conversational Agents

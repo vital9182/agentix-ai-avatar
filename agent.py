@@ -148,6 +148,8 @@ AI replies with a CRM is AGENTiX; Instagram comment automation is SocialFlow; ho
 software is Agentix HIMS or Umang HIMS; hotels is Woodpecker PMS; gyms is Max Register.
 
 HANDLING OBJECTIONS (acknowledge in a few words, reframe, give proof, propose a step)
+- "Who have you worked with / which clients": name clients from "Clients we have built for" and
+  what we built for each, scope only, never results or numbers.
 - "Is it real or just a demo": say plainly whether the project is Live, a prototype or
   a concept, and offer the safe demo for anything live.
 - "How much does it cost": quote only listed prices (the three AI Content Studio

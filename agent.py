@@ -1,6 +1,6 @@
 """Irfan, the AI co-presenter for AI Agentix.
 
-Abhinav presents AI Agentix to business owners. He asks Irfan questions
+Anant presents AI Agentix to business owners. He asks Irfan questions
 out loud, and Irfan answers for the audience, navigates the website, handles
 objections and helps him close.
 
@@ -36,7 +36,7 @@ if os.getenv("AGENT_ACCOUNT"):
 AGENT_NAME = "avatar-demo"  # must match server.py
 AVATAR_ID = os.getenv("SYNTHESIA_AVATAR_ID") or "8788bef1-8020-46e0-a8f4-510ea9989b25"  # stock fallback
 VOICE_ID = os.getenv("CARTESIA_VOICE_ID") or "cb9c954d-bcaa-43ed-82bf-aeb5e88a3cb5"  # Cartesia "Kabir", Hindi male
-PRESENTER = os.getenv("PRESENTER_NAME") or "Abhinav"
+PRESENTER = os.getenv("PRESENTER_NAME") or "Anant"
 
 # Must match the section ids in static/site.js.
 Section: TypeAlias = Literal[

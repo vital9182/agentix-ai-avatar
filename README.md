@@ -41,7 +41,7 @@ SITE[action]?.(args);
 The page content works without the agent running; the voice feature requires the LiveKit and Synthesia configuration above.
 
 ## Presenting
-Irfan is a co-presenter for the founder. Click **Start presentation**, and Irfan greets the presenter by name (`PRESENTER_NAME` in `.env`, default "Abhinav") and asks what to share. The presenter then asks questions out loud; Irfan answers for the audience, handles objections, scrolls the page to the matching section, and steers towards a discovery call. Live captions appear under the avatar. Keep `agent.py`'s objection guidance and `AGENTIX_COMPANY_KNOWLEDGE.md` up to date; Irfan won't quote prices, SLAs or results that aren't in them.
+Irfan is a co-presenter for the founder. Click **Start presentation**, and Irfan greets the presenter by name (`PRESENTER_NAME` in `.env`, default "Anant") and asks what to share. The presenter then asks questions out loud; Irfan answers for the audience, handles objections, scrolls the page to the matching section, and steers towards a discovery call. Live captions appear under the avatar. Keep `agent.py`'s objection guidance and `AGENTIX_COMPANY_KNOWLEDGE.md` up to date; Irfan won't quote prices, SLAs or results that aren't in them.
 
 ## The deck
 The site is a full-screen keynote deck of eleven scenes (the second one, "The real problem", pairs each pain business owners feel with how VMS removes it) (`static/site.js`), styled in `static/site.css` with a glass look and the brand colour from the logo (`--petrol`). Arrow keys, the dots on the left, or Irfan's `show_section` tool move between scenes. All sizes are in `rem`, so it scales to any projector.
@@ -57,7 +57,7 @@ The site is a full-screen keynote deck of eleven scenes (the second one, "The re
 - **Layout:** while presenting, Irfan has a column of his own and the slides end where it begins, at any window width from about 720 px up. Press F11 for full screen and Ctrl+0 to reset browser zoom before you start.
 
 ## Language, voice and avatar
-- **Hinglish by default:** Irfan speaks simple everyday Hindi mixed with simple English, written in Roman letters ("Aapki team baar-baar badalti rehti hai"), never formal Hindi. Speech is transcribed with `deepgram/flux-general-multi`, so Abhinav can ask in Hindi, English or Hinglish. Set `NICO_LANGUAGE=english` in `.env` for plain English. The wording rules, including the list of formal words to avoid, are in `LANGUAGE_RULES` in `agent.py`.
+- **Hinglish by default:** Irfan speaks simple everyday Hindi mixed with simple English, written in Roman letters ("Aapki team baar-baar badalti rehti hai"), never formal Hindi. Speech is transcribed with `deepgram/flux-general-multi`, so Anant can ask in Hindi, English or Hinglish. Set `NICO_LANGUAGE=english` in `.env` for plain English. The wording rules, including the list of formal words to avoid, are in `LANGUAGE_RULES` in `agent.py`.
 - **Voice:** defaults to Cartesia "Kabir", a male Hindi voice that also reads English. Set `CARTESIA_VOICE_ID` in `.env` to use a different one from https://play.cartesia.ai/voices.
 - **Avatar:** in Synthesia, open **Avatars**, choose an avatar, then **••• → Copy Interactive ID** and put the result in `SYNTHESIA_AVATAR_ID`. Stock actor avatars and avatars outside your plan aren't accepted (`UNKNOWN_AVATAR`). Restart `agent.py` after changing `.env`.
 

@@ -1,6 +1,6 @@
 # Vintaqe Management Solutions: a company website with a voice assistant
 
-A company profile for Vintaqe Management Solutions Private Limited (VMS), with a Synthesia avatar that answers visitor questions and can navigate to relevant page sections. The company content is based on the supplied `About VMS.doc` brief and research of the public VMSolutions website. See [VMSOLUTIONS_COMPANY_KNOWLEDGE.md](./VMSOLUTIONS_COMPANY_KNOWLEDGE.md) for the structured facts, sources and verification notes.
+A presentation site for AI Agentix, with a Synthesia avatar (Irfan) that answers questions about AI Agentix's products and projects. The agent's knowledge is [AGENTIX_COMPANY_KNOWLEDGE.md](./AGENTIX_COMPANY_KNOWLEDGE.md). The slide deck (HTML) is still the old one and will be replaced.
 
 ```
 mic → VAD → STT → turn detection → LLM (+ navigation tool) → TTS → Synthesia avatar → browser
@@ -29,7 +29,7 @@ Try: *"What does VMS do?"* · *"Tell me about your AI capabilities."* · *"What 
 | `server.py` | Serves the page and creates a room token that sends the agent in |
 | `static/site.js` | Company page content, rendering and the `SITE` navigation API |
 | `static/site.css` | Responsive company-site and avatar styling |
-| `VMSOLUTIONS_COMPANY_KNOWLEDGE.md` | Company facts and source notes; `agent.py` loads it into the assistant's prompt, so edit facts here |
+| `AGENTIX_COMPANY_KNOWLEDGE.md` | Company facts and source notes; `agent.py` loads it into the assistant's prompt, so edit facts here |
 
 The company site and avatar remain separate. `static/site.js` knows nothing about LiveKit or Synthesia; it exposes the `SITE` method used by the agent. `index.html` forwards tool calls into it:
 
@@ -41,7 +41,7 @@ SITE[action]?.(args);
 The page content works without the agent running; the voice feature requires the LiveKit and Synthesia configuration above.
 
 ## Presenting
-Irfan is a co-presenter for the founder. Click **Start presentation**, and Irfan greets the presenter by name (`PRESENTER_NAME` in `.env`, default "Abhinav") and asks what to share. The presenter then asks questions out loud; Irfan answers for the audience, handles objections, scrolls the page to the matching section, and steers towards a discovery call. Live captions appear under the avatar. Keep `agent.py`'s objection guidance and `VMSOLUTIONS_COMPANY_KNOWLEDGE.md` up to date; Irfan won't quote prices, SLAs or results that aren't in them.
+Irfan is a co-presenter for the founder. Click **Start presentation**, and Irfan greets the presenter by name (`PRESENTER_NAME` in `.env`, default "Abhinav") and asks what to share. The presenter then asks questions out loud; Irfan answers for the audience, handles objections, scrolls the page to the matching section, and steers towards a discovery call. Live captions appear under the avatar. Keep `agent.py`'s objection guidance and `AGENTIX_COMPANY_KNOWLEDGE.md` up to date; Irfan won't quote prices, SLAs or results that aren't in them.
 
 ## The deck
 The site is a full-screen keynote deck of eleven scenes (the second one, "The real problem", pairs each pain business owners feel with how VMS removes it) (`static/site.js`), styled in `static/site.css` with a glass look and the brand colour from the logo (`--petrol`). Arrow keys, the dots on the left, or Irfan's `show_section` tool move between scenes. All sizes are in `rem`, so it scales to any projector.
